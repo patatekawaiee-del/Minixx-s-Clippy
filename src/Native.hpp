@@ -1,9 +1,6 @@
 
 #pragma once
 
-// Bridge between the C++ mod code and Native.mm.
-// No Geode or cocos2d includes here.
-
 #include <functional>
 #include <string>
 
@@ -54,7 +51,6 @@ namespace clippy::native {
         long long bytes = 0;
     };
 
-    // Full-attempt recording result.
     struct AttemptResult {
         bool ok = false;
         std::string error;
@@ -69,7 +65,6 @@ namespace clippy::native {
     using AttemptFn = std::function<void(AttemptResult const&)>;
 
     void setLogger(LogFn fn);
-
     double hostNow();
 
     void configure(Config const& config);
@@ -79,10 +74,8 @@ namespace clippy::native {
 
     Status status();
 
-    // Existing rolling-buffer clips.
     void requestClip(ClipRequest const& request, ClipFn onDone);
 
-    // New full-attempt recording API.
     void beginAttempt(std::string const& outputPath);
     void finishAttempt(AttemptFn onDone);
     void discardAttempt();
