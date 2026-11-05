@@ -1,4 +1,3 @@
-
 name: Build MinixxsClippy iOS
 
 on:
@@ -21,7 +20,7 @@ jobs:
         uses: geode-sdk/build-geode-mod@main
         with:
           target: iOS
-          
+
       - name: Upload GEODE file
         uses: actions/upload-artifact@v7
         with:
