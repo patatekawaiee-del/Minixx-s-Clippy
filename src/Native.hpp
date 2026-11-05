@@ -1,8 +1,8 @@
+
 #pragma once
 
-// Bridge between the C++ mod code and Native.mm (ReplayKit + VideoToolbox + AVFoundation).
-// This header must stay free of Geode / cocos2d includes: it is also compiled as Objective-C++.
-// Every callback is delivered on the main thread.
+// Bridge between the C++ mod code and Native.mm.
+// No Geode or cocos2d includes here.
 
 #include <functional>
 #include <string>
@@ -21,7 +21,7 @@ namespace clippy::native {
         double bufferSeconds = 30.0;
         int bitrateKbps = 12000;
         bool hevc = false;
-        int rotation = 0; // 0 auto, 1 none, 2 clockwise, 3 counter-clockwise, 4 upside down
+        int rotation = 0;
     };
 
     struct Status {
@@ -38,11 +38,11 @@ namespace clippy::native {
     };
 
     struct ClipRequest {
-        double startHost = 0.0;     // host-clock seconds (see hostNow) of the first wanted instant
-        double endHost = 0.0;       // host-clock seconds of the last wanted instant
-        double highlightHost = 0.0; // instant used for the thumbnail
+        double startHost = 0.0;
+        double endHost = 0.0;
+        double highlightHost = 0.0;
         std::string directory;
-        std::string baseName;       // file name without extension
+        std::string baseName;
     };
 
     struct ClipResult {
@@ -54,19 +54,42 @@ namespace clippy::native {
         long long bytes = 0;
     };
 
-    using LogFn = void (*)(int level, char const* message); // 0 debug, 1 info, 2 warn, 3 error
+    // Full-attempt recording result.
+    struct AttemptResult {
+        bool ok = false;
+        std::string error;
+        std::string videoPath;
+        double duration = 0.0;
+        long long bytes = 0;
+    };
+
+    using LogFn = void (*)(int level, char const* message);
     using StateFn = std::function<void(CaptureState, std::string const&)>;
     using ClipFn = std::function<void(ClipResult const&)>;
+    using AttemptFn = std::function<void(AttemptResult const&)>;
 
     void setLogger(LogFn fn);
+
     double hostNow();
+
     void configure(Config const& config);
+
     void start(StateFn onState);
     void stop();
+
     Status status();
+
+    // Existing rolling-buffer clips.
     void requestClip(ClipRequest const& request, ClipFn onDone);
+
+    // New full-attempt recording API.
+    void beginAttempt(std::string const& outputPath);
+    void finishAttempt(AttemptFn onDone);
+    void discardAttempt();
+
     void share(std::string const& path);
-    void haptic(int kind); // 0 light, 1 success, 2 warning
+    void haptic(int kind);
+
     std::string systemLanguage();
 
 }
