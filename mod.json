@@ -1,0 +1,160 @@
+{
+	"geode": "5.11.2",
+	"gd": {
+		"ios": "*"
+	},
+	"id": "minixx.clippy",
+	"name": "Minixx's Clippy",
+	"version": "v1.0.0",
+	"developer": "Minixx",
+	"description": "Instant replay for Geometry Dash on iOS. Clippy keeps the last seconds of your game in memory and saves the moment when you die at a high percent, set a new best or beat a level.",
+	"tags": ["utility", "interface"],
+	"settings": {
+		"enabled": {
+			"type": "bool",
+			"default": true,
+			"name": "Enable Clippy",
+			"description": "Master switch for automatic clips."
+		},
+		"auto-start": {
+			"type": "bool",
+			"default": true,
+			"name": "Start the buffer with the game",
+			"description": "Starts the rolling buffer when the main menu opens. iOS asks for screen-recording permission every launch."
+		},
+		"buffer-seconds": {
+			"type": "int",
+			"default": 30,
+			"min": 10,
+			"max": 120,
+			"name": "Buffer length (seconds)",
+			"description": "How much footage is kept in memory."
+		},
+		"quality": {
+			"type": "string",
+			"default": "Balanced",
+			"one-of": ["Light", "Balanced", "High", "Max"],
+			"name": "Quality",
+			"description": "Video bitrate: 6, 12, 20 or 32 Mbps."
+		},
+		"codec": {
+			"type": "string",
+			"default": "H.264",
+			"one-of": ["H.264", "HEVC"],
+			"name": "Codec",
+			"description": "HEVC gives smaller files at the same quality."
+		},
+		"rotation": {
+			"type": "string",
+			"default": "Auto",
+			"one-of": ["Auto", "None", "Clockwise", "Counter-clockwise", "Upside down"],
+			"name": "Rotation fix",
+			"description": "Use this if your clips come out sideways or upside down."
+		},
+		"on-death": {
+			"type": "bool",
+			"default": true,
+			"name": "Clip deaths",
+			"description": "Save a clip when you die past the minimum percent."
+		},
+		"death-percent": {
+			"type": "int",
+			"default": 80,
+			"min": 1,
+			"max": 99,
+			"name": "Minimum percent",
+			"description": "Deaths below this percent are ignored."
+		},
+		"on-best": {
+			"type": "bool",
+			"default": true,
+			"name": "Clip new bests",
+			"description": "Save a clip when you beat your best percent."
+		},
+		"best-min-percent": {
+			"type": "int",
+			"default": 30,
+			"min": 1,
+			"max": 99,
+			"name": "New bests from",
+			"description": "New bests below this percent are ignored."
+		},
+		"on-complete": {
+			"type": "bool",
+			"default": true,
+			"name": "Clip completions",
+			"description": "Save a clip when you beat a level."
+		},
+		"practice": {
+			"type": "bool",
+			"default": false,
+			"name": "Clip practice runs",
+			"description": "Also clip deaths and completions in practice mode."
+		},
+		"preroll": {
+			"type": "int",
+			"default": 3,
+			"min": 0,
+			"max": 15,
+			"name": "Pre-roll (seconds)",
+			"description": "Extra footage kept before the run starts."
+		},
+		"postroll": {
+			"type": "int",
+			"default": 2,
+			"min": 0,
+			"max": 8,
+			"name": "Post-roll (seconds)",
+			"description": "Extra footage kept after the death."
+		},
+		"manual-seconds": {
+			"type": "int",
+			"default": 20,
+			"min": 5,
+			"max": 60,
+			"name": "Manual clip length (seconds)",
+			"description": "Length of a clip made with the Clip button."
+		},
+		"max-clip-seconds": {
+			"type": "int",
+			"default": 60,
+			"min": 10,
+			"max": 120,
+			"name": "Max clip length (seconds)",
+			"description": "Automatic clips are cut to this length."
+		},
+		"max-clips": {
+			"type": "int",
+			"default": 40,
+			"min": 5,
+			"max": 300,
+			"name": "Clips to keep",
+			"description": "Oldest clips are deleted beyond this number."
+		},
+		"mascot": {
+			"type": "bool",
+			"default": true,
+			"name": "Clippy reactions",
+			"description": "Show Clippy and his speech bubble when a clip is saved."
+		},
+		"ingame-toast": {
+			"type": "bool",
+			"default": false,
+			"name": "Reactions while playing",
+			"description": "Off by default so Clippy never ends up inside your next clip."
+		},
+		"haptics": {
+			"type": "bool",
+			"default": true,
+			"name": "Haptics",
+			"description": "A small vibration when a clip is saved."
+		},
+		"language": {
+			"type": "string",
+			"default": "Auto",
+			"one-of": ["Auto", "English", "French"],
+			"name": "Language",
+			"description": "Language of Clippy's interface."
+		}
+	}
+}
