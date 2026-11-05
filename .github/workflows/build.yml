@@ -21,9 +21,7 @@ jobs:
         uses: geode-sdk/build-geode-mod@main
         with:
           target: iOS
-          bindings: vwtfafa/bindings
-          bindings-ref: fix/2.2081-depends
-
+          
       - name: Upload GEODE file
         uses: actions/upload-artifact@v7
         with:
